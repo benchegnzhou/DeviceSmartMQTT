@@ -1,0 +1,107 @@
+apply plugin: 'com.android.application'
+//数据库greendao
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    defaultConfig {
+        applicationId "devicesmartmqtt.zbc.com.devicesmartmqtt"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //添加如下配置就OK了
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+        //版本名后面添加一句话，意思就是flavor dimension 它的维度就是该版本号，这样维度就是都是统一的了
+        flavorDimensions "versionCode"
+        //manifestPlaceholders = [CHANNEL_NAME: "channel_name"]
+    }
+    signingConfigs {
+        debug {
+            storeFile file("../AppSecretKey.jks")
+            storePassword "987654321"
+            keyAlias "AppSecretKey"
+            keyPassword "987654321"
+        }
+
+        release {
+            storeFile file("../AppSecretKey.jks")
+            storePassword "987654321"
+            keyAlias "AppSecretKey"
+            keyPassword "987654321"
+        }
+    }
+
+    //核心数据库配置
+    greendao {
+        //schemaVersion 7 //数据库版本号
+        schemaVersion rootProject.ext.android.greendaoDbVersion //数据库版本号
+        daoPackage 'devicesmartmqtt.zbc.com.devicesmartmqtt.db'// 设置DaoMaster、DaoSession、Dao 包名
+        targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
+    }
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "boolean", "TOAST_DEBUG", "true"
+            // buildConfigField "String", "HOST_SERVICE", "\"http://192.168.1.109:8080/Service\""
+
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+            signingConfig signingConfigs.debug
+        }
+        release {
+            //加载默认混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            //替换版本正式的上线主机地址
+            buildConfigField "String", "HOST_SERVICE", "\"http://192.168.1.1\""
+            debuggable true
+            //混淆
+            minifyEnabled false
+
+            //Zipalign优化
+            // zipAlignEnabled true
+            // 移除无用的resource文件
+            // shrinkResources true
+            //日志开关
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "boolean", "TOAST_DEBUG", "true"
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+    sourceSets {
+        main {
+            //jni库的调用会到资源文件夹下libs里面找so文件
+            jniLibs.srcDirs = ['libs', 'amap']
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation project(':commonutils')
+    //方法过多google提供的分包解决方案   参考 https://yq.aliyun.com/articles/12429   和  http://blog.csdn.net/gulihui890411/article/details/48551551
+    implementation 'com.android.support:multidex:1.0.3'
+//    implementation project(':easypermissions')
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation 'com.jakewharton:butterknife:7.0.1'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+
+    //数据库 GreenDao
+    implementation 'org.greenrobot:greendao:3.2.2'
+}
