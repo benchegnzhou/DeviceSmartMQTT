@@ -1,1 +1,1 @@
-include ':app','commonutils','statusBarLibrary'
+include ':app','commonutils','statusBarLibrary','badgesLib'

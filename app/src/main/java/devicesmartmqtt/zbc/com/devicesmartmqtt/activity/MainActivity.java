@@ -1,5 +1,6 @@
 package devicesmartmqtt.zbc.com.devicesmartmqtt.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_test_badge:
+                startActivity(new Intent(this,Badge4AppActivity.class));
                 break;
         }
     }

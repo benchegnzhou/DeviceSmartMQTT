@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.Badge4AppActivity">
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/btn_badge_show"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_144"
+        android:layout_marginLeft="@dimen/qb_px_40"
+        android:layout_marginRight="@dimen/qb_px_40"
+        android:layout_marginTop="@dimen/qb_px_40"
+        android:background="@color/comment_person"
+        android:text="应用角标显示"
+        android:textColor="@color/white0"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_badge_dissmis"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_144"
+        android:layout_marginLeft="@dimen/qb_px_40"
+        android:layout_marginRight="@dimen/qb_px_40"
+        android:layout_marginTop="@dimen/qb_px_40"
+        android:background="@color/comment_person"
+        android:text="应用角标隐藏"
+        android:textColor="@color/white0"
+        android:textSize="16sp" />
+</LinearLayout>

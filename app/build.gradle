@@ -98,6 +98,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 //    implementation project(':easypermissions')
     implementation project(':statusBarLibrary')
+    implementation project(':badgesLib')
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.squareup.okhttp3:okhttp:3.9.0'
     implementation 'com.jakewharton:butterknife:7.0.1'
